@@ -1,0 +1,44 @@
+#include <Servo.h>
+
+Servo r1;  // create servo object to control a servo
+Servo j1;
+Servo j2;
+Servo grab;
+
+int ppr1 = 0;  // analog pin used to connect the potentiometer
+int ppj1 = 1;
+int ppj2 = 2;
+int ppgrab = 3;
+
+int valr1;
+int valj1;
+int valj2;
+int valgrab;    // variable to read the value from the analog pin
+
+void setup() {
+  r1.attach(9);  // attaches the servo on pin 9 to the servo object
+  j1.attach(10);
+  j2.attach(11);
+  grab.attach(5);
+}
+
+void loop() {
+  //rotational servo
+  valr1 = analogRead(ppr1);            // reads the value of the potentiometer (value between 0 and 1023)
+  valr1 = map(valr1, 0, 1023, 0, 180);     // scale it to use it with the servo (value between 0 and 180)
+  r1.write(valr1);                  // sets the servo position according to the scaled value
+
+  valj1 = analogRead(ppj1);            // reads the value of the potentiometer (value between 0 and 1023)
+  valj1 = map(valj1, 0, 1023, 0, 180);     // scale it to use it with the servo (value between 0 and 180)
+  j1.write(valj1); 
+  
+  valj2 = analogRead(ppj2);            // reads the value of the potentiometer (value between 0 and 1023)
+  valj2 = map(valj2, 0, 1023, 10, 180);     // scale it to use it with the servo (value between 0 and 180)
+  j2.write(valj2); 
+
+  valgrab = analogRead(ppgrab);            // reads the value of the potentiometer (value between 0 and 1023)
+  valgrab = map(valgrab, 0, 1023, 0, 180);     // scale it to use it with the servo (value between 0 and 180)
+  grab.write(valgrab);   
+
+  delay(15);                           // waits for the servos to get there
+}
